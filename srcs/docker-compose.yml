@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/hazaouya/data/wp_data
+      o: bind
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/hazaouya/data/db_data
+      o: bind
+
+networks:
+  inception:
+    name: inception
+
+services:
+  wordpress:
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    restart: always
+    volumes:
+      - wp_data:/wordpress
+    networks:
+      - inception
+    env_file:
+      - .env
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    restart: always
+    volumes:
+      - wp_data:/wordpress
+    networks:
+      - inception
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - inception
+    env_file:
+      - .env
