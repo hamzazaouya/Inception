@@ -2,7 +2,7 @@
 ## description
 
   Creating a docker-based WordPress LEMP stack using docker-compose on Alpine Linux or Debian Buster. The whole project has to be done in our personal virtual machine.
-  Take look at subject for more info: [subject]().
+  Take look at subject for more info: [subject](https://github.com/hamzazaouya/Inception/blob/master/en.subject.pdf).
 
 ![Inception](img/docker.png "Inception")
 
